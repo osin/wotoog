@@ -1,0 +1,170 @@
+{% extends "WotoogUserBundle::layout.html.twig" %}
+{% block document %}
+    <div class="container">
+        <form class="form-horizontal">
+            <div class="row form-group">
+                <div class="col-xs-12">
+                    <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+                        <li class="active">
+                            <a href="#step-1">
+                                <h4 class="list-group-item-heading">Identité du club</h4>
+                                <p class="list-group-item-text">Information de base</p>
+                            </a>
+                        </li>
+                        <li class="disabled">
+                            <a href="#step-2">
+                                <h4 class="list-group-item-heading">Configuration</h4>
+                                <p class="list-group-item-text">Désign et extensions</p>
+                            </a>
+                        </li>
+                        <li class="disabled">
+                            <a href="#step-3">
+                                <h4 class="list-group-item-heading">Membres</h4>
+                                <p class="list-group-item-text">Les membres du clubs</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row setup-content" id="step-1">
+                <div class="col-xs-12">
+                    <div class="col-md-12">
+                        {% include "WotoogClubBundle::Register/step-base.html.twig" %}
+                    </div>
+                </div>
+            </div>
+            <div class="row setup-content" id="step-2">
+                <div class="col-xs-12">
+                    <div class="col-md-12">
+                        {% include "WotoogClubBundle::Register/step-config.html.twig" %}
+                    </div>
+                </div>
+            </div>
+            <div class="row setup-content" id="step-3">
+                <div class="col-xs-12">
+                    <div class="col-md-12">
+                        {% include "WotoogClubBundle::Register/step-member.html.twig" %}
+                    </div>
+                </div>
+            </div>
+            <button id="submit" class="btn btn-success pull-right" type="submit">Créer le club</button>
+        </form>
+    </div>
+{% endblock content %}
+{% block javascriptPageTreatment %}
+    <script>
+        $(document).ready(function () {
+//Navigation
+            var navListItems = $('ul.setup-panel li a'),
+                    allWells = $('.setup-content');
+
+            allWells.hide();
+
+            navListItems.click(function (e) {
+                e.preventDefault();
+                var $target = $($(this).attr('href')),
+                        $item = $(this).closest('li');
+
+                if (!$item.hasClass('disabled')) {
+                    navListItems.closest('li').removeClass('active');
+                    $item.addClass('active');
+                    allWells.hide();
+                    $target.show();
+                }
+            });
+
+            $('ul.setup-panel li.active a').trigger('click');
+
+            $('#activate-step-2').on('click', function (e) {
+                $('ul.setup-panel li:eq(1)').removeClass('disabled');
+                $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+                $(this).remove();
+            })
+
+            $('#activate-step-3').on('click', function (e) {
+                $('ul.setup-panel li:eq(2)').removeClass('disabled');
+                $('ul.setup-panel li a[href="#step-3"]').trigger('click');
+                $(this).remove();
+            })
+        });
+//!Navigation
+
+//Radio Button
+        $('#radioBtn a').on('click', function(){
+            var sel = $(this).data('value');
+            var tog = $(this).data('toggle');
+            $('#'+tog).prop('value', sel);
+
+            $('a[data-toggle="'+tog+'"]').not('[data-value="'+sel+'"]').removeClass('active').addClass('notActive');
+            $('a[data-toggle="'+tog+'"][data-value="'+sel+'"]').removeClass('notActive').addClass('active');
+        });
+
+//!Radio Button
+
+//Checkbox
+        $('.button-checkbox').each(function () {
+
+            // Settings
+            var $widget = $(this),
+                    $button = $widget.find('button'),
+                    $checkbox = $widget.find('input:checkbox'),
+                    color = $button.data('color'),
+                    settings = {
+                        on: {
+                            icon: 'glyphicon glyphicon-check'
+                        },
+                        off: {
+                            icon: 'glyphicon glyphicon-unchecked'
+                        }
+                    };
+
+            // Event Handlers
+            $button.on('click', function () {
+                $checkbox.prop('checked', !$checkbox.is(':checked'));
+                $checkbox.triggerHandler('change');
+                updateDisplay();
+            });
+            $checkbox.on('change', function () {
+                updateDisplay();
+            });
+
+            // Actions
+            function updateDisplay() {
+                var isChecked = $checkbox.is(':checked');
+
+                // Set the button's state
+                $button.data('state', (isChecked) ? "on" : "off");
+
+                // Set the button's icon
+                $button.find('.state-icon')
+                        .removeClass()
+                        .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+                // Update the button's color
+                if (isChecked) {
+                    $button
+                            .removeClass('btn-default')
+                            .addClass('btn-' + color + ' active');
+                }
+                else {
+                    $button
+                            .removeClass('btn-' + color + ' active')
+                            .addClass('btn-default');
+                }
+            }
+
+            // Initialization
+            function initCheckBox() {
+
+                updateDisplay();
+
+                // Inject the icon if applicable
+                if ($button.find('.state-icon').length == 0) {
+                    $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+                }
+            }
+            initCheckBox();
+        });
+//!Checkbox
+    </script>
+{% endblock %}

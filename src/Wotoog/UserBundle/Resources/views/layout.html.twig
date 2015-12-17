@@ -1,0 +1,75 @@
+{% extends "WotoogHomeBundle::layout.html.twig" %}
+        {% block customStyleSheet %}
+            {% if author.theme is defined %}
+                <link rel="stylesheet"
+                      href="{{ asset('bundles/wotooghome/css/theme/' ~ author.theme ~ '/bootstrap.min.css') }}"/>
+            {% endif %}
+        {% endblock %}
+{% block appsmenu %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <a href="#" class="pop navbar-toggle" onclick="return false;" data-placement="bottom" id="apps-menu-collapsed"
+           tabindex="0" data-toggle="popover" data-html="true" data-trigger="focus" title="Applications"
+           data-content='{% include "WotoogUserBundle::apps.menu.html.twig" %}'><i
+                    class="glyphicon glyphicon-th-large"></i></a>
+    {% endif %}
+{% endblock %}
+{% block headerMenu %}
+    {% include "WotoogUserBundle::header.menu.html.twig" %}
+{% endblock %}
+    {% block document %}
+        <div class="container fos_user">
+            <div class="session_bag">
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for key, message in messages %}
+                        <div class="flash-{{ type }}">
+                            {{ message|trans({}, 'FOSUserBundle') }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="fos_user_content">
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </div>
+        </div>
+        {% block container %}
+            <div class="container">
+                <div class="row">
+                    {% block topLayer %}
+                        <div class="col-xs-12 no-padding no-margin box">
+                            {% block cover %}
+                                <div class="col-xs-12 col-sm-3 no-padding">
+                                    {% include "WotoogUserBundle::User/card.html.twig" %}
+                                </div>
+                                {% include "WotoogUserBundle::User/cover.html.twig" %}
+                            {% endblock %}
+                            {% block quickaccess %}
+                                <div id="header-menu" class="col-xs-12 centered-pills">
+                                    <ul class="nav nav-pills">
+                                        <li {% if "wotoog_blog" in app.request.attributes.get('_route') or "wotoog_post" in app.request.attributes.get('_route') %} class="active"{% endif %}>
+                                            <a href="{{ path('wotoog_post_index', {'blog_id':author.blog.id}) }}">Blog</a>
+                                        </li>
+                                        <li class="disabled"><a class="disabled" href="#">Medias</a></li>
+                                        <li class="disabled"><a class="disabled" href="#">Events</a></li>
+                                    </ul>
+                                </div>
+                            {% endblock quickaccess %}
+                        </div>
+                    {% endblock topLayer %}
+                    <div class="blank-10">&nbsp;</div>
+                    {% block documentContent %}
+                        <div class="col-xs-3 no-padding">
+                            <div id="panel"> <!-- a modifier -->
+                                {% block panel %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                        <div class="col-xs-9 no-padding" id="content">
+                            {% block content %}
+                            {% endblock %}
+                        </div>
+                    {% endblock documentContent %}
+                </div>
+            </div>
+        {% endblock container %}
+    {% endblock document %}

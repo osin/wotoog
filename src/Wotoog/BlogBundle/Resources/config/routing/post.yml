@@ -1,0 +1,40 @@
+wotoog_post_index:
+    pattern:  /{page}
+    defaults: { _controller: "WotoogBlogBundle:Post:Index", page:1 }
+    requirements: {blog_id: \d+, page: \d+}
+
+wotoog_post_show:
+    pattern:  /show/{id}
+    defaults: { _controller: "WotoogBlogBundle:Post:show" }
+    requirements:
+        id: \d+
+
+wotoog_post_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WotoogBlogBundle:Post:edit" }
+    requirements:
+        id: \d+
+
+wotoog_post_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WotoogBlogBundle:Post:update" }
+    requirements:
+        id: \d+
+        _method: put
+
+wotoog_post_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WotoogBlogBundle:Post:delete" }
+    requirements: { _method: post|delete }
+
+wotoog_post_new:
+    pattern:  /new
+    defaults: { _controller: "WotoogBlogBundle:Post:new" }
+    requirements:
+        blog_id: \d+
+
+wotoog_post_create:
+    pattern:  /create
+    defaults: { _controller: "WotoogBlogBundle:Post:create" }
+    requirements:
+        _method: post

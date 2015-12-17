@@ -1,0 +1,7 @@
+parameters:
+#    wotoog_counter.example.class: Wotoog\CounterBundle\Example
+
+services:
+#    wotoog_counter.example:
+#        class: %wotoog_counter.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,21 @@
+Wotoog\BlogBundle\Entity\Blog:
+    type: entity
+    table: blog
+    repositoryClass: Wotoog\BlogBundle\Entity\BlogRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    oneToMany:
+        posts:
+            targetEntity: Post
+            mappedBy: blog
+    fields:
+        visibility:
+            type: string
+            length: 12
+        description:
+            type: text
+    lifecycleCallbacks: {  }

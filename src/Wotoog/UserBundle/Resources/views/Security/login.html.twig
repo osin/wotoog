@@ -1,0 +1,81 @@
+{% extends "WotoogUserBundle::layout.html.twig" %}
+{% block title %}Connexion{% endblock %}
+{% block document %}
+    <div class="container page-login">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-lock"></span> Connexion
+                    </div>
+                    <div class="panel-body">
+                        {% block fos_user_content %}
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error }}</div>
+                            {% endif %}
+                        {% endblock fos_user_content %}
+                        <form role='form' action="{{ path("fos_user_security_check") }}" class="form-horizontal"
+                              method="post" id="login-form">
+                            <div class="col-sm-3 col-xs-3">
+                                <img class='img-thumbnail img-responsive img-circle' id='thumbnail' src="http://www.gravatar.com/avatar/?s=84&d=mm"/>
+                            </div>
+                            <div class="col-sm-9 col-xs-9">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                <span class="input-group-btn">
+                                    <label for="email"
+                                           class="btn btn-default">E-mail</label>
+                                </span>
+                                        <input type="text" class="form-control" id="email" name="_username"
+                                               placeholder="Email" required
+                                               onblur="$('#thumbnail').attr('src', 'http://www.gravatar.com/avatar/' + $.md5($('#email').val()) + '?s=84&d=mm');">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                <span class="input-group-btn">
+                                    <label for="password"
+                                           class="btn btn-default">Secret</label>
+                                </span>
+                                        <input type="password" class="form-control password" id="password"
+                                               name="_password" placeholder="Password" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default reveal" type="button"><i
+                                                class="glyphicon glyphicon-eye-open"></i></button>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group last pull-right">
+                                    <div class="checkbox-inline checkbox">
+                                        <label>
+                                            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                                            Rester connecté
+                                        </label>
+                                    </div>
+
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                                    <button type="submit" class="btn btn-success btn-sm" id="_submit" name="_submit">
+                                        Connexion
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                        Nouveau venu? <a alt="Inscription" href="{{ path('wotoog_register') }}">Inscrivez vous ici</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascriptPageTreatment %}
+    <!-- setBackground -->
+    <script>
+        $(function () {
+            $(document.body).attr('style', 'background: url({{ asset('bundles/wotooghome/img/background.jpg') }}) no-repeat center center fixed;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;');
+            $('#top').attr('style', 'background-color: white;opacity: 0.9;');
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,15 @@
+Wotoog\BlogBundle\Entity\Tag:
+    type: entity
+    table: tag
+    repositoryClass: Wotoog\BlogBundle\Entity\TagRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '32'
+    lifecycleCallbacks: {  }

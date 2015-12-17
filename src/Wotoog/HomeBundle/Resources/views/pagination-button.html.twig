@@ -1,0 +1,13 @@
+<div class="btn-toolbar pull-right" role="toolbar">
+    <div class="btn-group">
+        {% if nbPages > 1 %}
+            {% if page != 1 %}
+                <a class="btn btn-default" href="{{ path(app.request.attributes.get('_route'), {(key):value, 'page':(page-1)}) }}">page précédente</a>
+            {% endif %}
+            <a class="btn btn-info">page {{ page }}</a>
+            {% if page != nbPages %}
+                <a class="btn btn-default" href="{{ path(app.request.attributes.get('_route'), {(key):value, 'page':(page+1)}) }}">page suivante</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

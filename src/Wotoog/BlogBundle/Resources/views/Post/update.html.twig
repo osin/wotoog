@@ -1,0 +1,102 @@
+{% extends 'WotoogUserBundle::layout.html.twig' %}
+{% block cover %}
+{% endblock %}
+{% block quickaccess %}
+    <div id="header-menu" class="col-xs-12 centered-pills">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a href="{{ path('wotoog_post_index', {'blog_id':blog.id}) }}">Retourner au blog</a>
+            </li>
+        </ul>
+    </div>
+{% endblock quickaccess %}
+{% block documentContent -%}
+    <div class="page-header">
+        <h1>
+            {% if entity.id is null %} Créer
+            {% else %} Mettre à jour {% endif %}
+            un article
+        </h1>
+    </div>
+    {% if entity.id is not null %}
+<form action="{{ path('wotoog_post_update', {'blog_id':blog.id, 'id':entity.id}) }}" method="POST"
+      name="wotoog_blogbundle_post" role="form">
+    <input type="hidden" name="_method" value="put"/>
+    {% else %}
+    <form action="{{ path('wotoog_post_create', {'blog_id':blog.id}) }}" method="POST" name="wotoog_blogbundle_post">
+        {% endif %}
+        {% if not form.vars.valid %}
+            <div class="alert alert-error">
+                {{ form_errors(form) }}
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <label for="title" class="control-label">Titre {{ form_errors(form.title) }}</label>
+            {{ form_widget(form.title, { 'attr': {'class': 'form-control input-md required','placeholder': 'Titre', 'maxlenght':'255'} }) }}
+        </div>
+        {% if entity.id is empty %}
+            <div class="form-group">
+                <label for="category" class="control-label">Catégorie {{ form_errors(form.category) }}</label>
+                {{ form_widget(form.category, { 'attr': {'class': 'form-control input-md required', 'placeholder': 'Categorie', 'maxlenght':'32'} }) }}
+                {% if categories is not empty %}
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Choisir une catégorie existante <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu btn-info" role="menu">
+                            {% for category in categories %}
+                                <li><a href="#"
+                                       onclick="$('#wotoog_blogbundle_post_category').val($(this).html()); return false;">{{ category }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <label for="visibility" class="control-label">Visibilité</label>
+
+            <div class="input-group">
+                <div id="radioBtn" class="btn-group">
+                    <a class="btn btn-primary btn-sm active" data-toggle="wotoog_blogbundle_post_visibility"
+                       data-value="public">Oui</a>
+                    <a class="btn btn-primary btn-sm notActive" data-toggle="wotoog_blogbundle_post_visibility"
+                       data-value="private">Non, l'article est privé</a>
+                </div>
+                {{ form_widget(form.visibility, { 'attr': {'class': 'form-control required hidden', 'value': entity.visibility} }) }}
+                {{ form_errors(form.visibility) }}
+            </div>
+        </div>
+        <div class="col-xs-12 no-padding">
+            <label for="content" class="control-label">Contenu</label>
+            {{ form_errors(form.content) }}
+            {{ form_widget(form.content) }}
+        </div>
+
+        <div class="blank-10"></div>
+        {{ form_widget(form._token) }}
+        {% if entity.id is defined %}
+            {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-success pull-right'}, 'label': 'Sauvegarder' }) }}
+        {% else %}
+            {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-success pull-right'}, 'label': 'Créer' }) }}
+        {% endif %}
+    </form>
+    {% endblock %}
+    {% block javascriptPageTreatment %}
+    {{ parent() }}
+    {{ tinymce_init() }}
+    <script>
+        $(document).ready(function () {
+            //Radio Button
+            $('#radioBtn a').on('click', function () {
+                var sel = $(this).data('value');
+                var tog = $(this).data('toggle');
+                $('#' + tog).prop('value', sel);
+
+                $('a[data-toggle="' + tog + '"]').not('[data-value="' + sel + '"]').removeClass('active').addClass('notActive');
+                $('a[data-toggle="' + tog + '"][data-value="' + sel + '"]').removeClass('notActive').addClass('active');
+            });
+        });
+    </script>
+{% endblock %}

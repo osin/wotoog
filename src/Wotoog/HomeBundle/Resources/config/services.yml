@@ -1,0 +1,8 @@
+parameters:
+#    wotoog_home.example.class: Wotoog\HomeBundle\Example
+
+services:
+    WotoogGravatar.twig.extension:
+        class: Wotoog\HomeBundle\TwigExtension\Gravatar
+        tags:
+            -  { name: twig.extension }

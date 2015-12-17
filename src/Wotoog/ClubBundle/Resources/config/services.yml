@@ -1,0 +1,7 @@
+parameters:
+#    wotoog_club.example.class: Wotoog\ClubBundle\Example
+
+services:
+#    wotoog_club.example:
+#        class: %wotoog_club.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

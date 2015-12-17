@@ -1,0 +1,7 @@
+parameters:
+#    wotoog_note.example.class: Wotoog\NoteBundle\Example
+
+services:
+#    wotoog_note.example:
+#        class: %wotoog_note.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

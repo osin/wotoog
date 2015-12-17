@@ -1,0 +1,35 @@
+{% extends "WotoogUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block title %}Confirmation d'inscription{% endblock %}
+{% block document %}
+    <div class="container">
+    {% block content %}
+        <div class="page-confirmed-registration">
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="text-center">Bienvenue {{ author.username }} <br/>
+                        <small>Votre compte a eté crée</small>
+                </div>
+                <div class="row box">
+                    <div class="col-xs-12 col-sm-3 no-padding">
+                        {% include "WotoogUserBundle::User/card.html.twig" %}
+                    </div>
+                    <div class="col-xs-12 col-sm-9 no-padding">
+                            <div class="centered-pills box margin10">
+                            <ul class="nav nav-pills">
+                                <li class="hidden-xs"><a href="{{ path('wotoog_post_new', {'blog_id':author.blog.id}) }}">Ecrire un article</a></li>
+                                <li class="hidden-xs"><a>Dire bonjour</a></li>
+                                <li class="hidden-xs"><a>Découvrir des activités</a></li>
+                                <li class="visible-xs"><a>Enrichir mon profil</a></li>
+                                <li class="visible-xs"><a>Je suis prêt</a></li>
+                            </ul>
+                            </div>
+                        <div class="margin10">
+                            {% include "WotoogHomeBundle::carousel-welcome.html.twig"%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    </div>
+{% endblock document %}

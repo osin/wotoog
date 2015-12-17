@@ -1,0 +1,27 @@
+{% extends "WotoogUserBundle::layout.html.twig" %}
+{% block document -%}
+<div class="container">
+    <div class="row">
+        <div class="page-header">
+            <h1>Les clubs <br /><small>Pour se faire connaitre</small></h1>
+        </div>
+    </div>
+    <div class="row">
+    {% for entity in entities %}
+        <div class="col-md-4 col-sm-6 col-xs-12 padding10" data-category="view">
+            <div class="thumbnail">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="{{ path('wotoog_club_show', { 'id': entity.id }) }}"><img class="img-responsive" src="{{ asset(entity.picture) | apply_filter('thumb')}}" alt="cover"/></a>
+                    </div>
+                    <div class="col-xs-6 caption">
+                            <p class="lead">{{ entity.name }}</p>
+                            {{ entity.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

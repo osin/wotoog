@@ -1,0 +1,3 @@
+wotoog_note_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: WotoogNoteBundle:Default:index }

@@ -1,0 +1,146 @@
+{% extends "WotoogUserBundle::layout.html.twig" %}
+    {% block document %}
+        <div class="container">
+            <div class="page-header">
+                <h1>Inscription</h1>
+            </div>
+            <div class="row">
+                {% block leftPanel %}
+                    <div class="col-md-7">
+                        <div class="leftPanel">
+                            {% include "WotoogHomeBundle::short-presentation.html.twig" %}
+                        </div>
+                    </div>
+                {% endblock %}
+                {% block rightPanel %}
+                    <div class="col-md-5 accordion" id="subscription">
+                        {% block fos_user_content %}
+                            {% trans_default_domain 'FOSUserBundle' %}
+                            <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }}
+                                  method="post" id="suscribeForm"
+                                  class="form-suscribe nomargin fos_user_registration_register">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">
+                                                <a class="accordion-toggle" data-toggle="collapse"
+                                                   data-parent="#subscription"
+                                                   href="#collapseOne">
+                                                    Mes informations d'authentification
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="col-xs-6">
+                                                    <div class="form-group" input-prepend>
+                                                        Email
+                                                        {{ form_widget(form.email, { 'attr': {'class': 'form-control required email','placeholder': 'Email', 'onblur': 'document.getElementById(\'thumbnail\').src = \'http://www.gravatar.com/avatar/\' + $.md5($(\'#fos_user_registration_form_email\').val()) + \'?s=300&d=mm\';'} }) }}
+                                                        {{ form_errors(form.email) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        Mot de pass
+                                                        {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control required password','placeholder': 'Put your password'} }) }}
+                                                        {{ form_errors(form.plainPassword.first) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        Re-taper le mot de passe
+                                                        {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control required password','placeholder': 'Repeat your password'} }) }}
+                                                        {{ form_errors(form.plainPassword.second) }}
+                                                    </div>
+                                                </div>
+                                                <div class='col-xs-6'>
+                                                    <div class="form-group">
+                                                        Nom d'utilisateur
+                                                        {{ form_widget(form.username, { 'attr': {'class': 'form-control required username','placeholder': 'Username'} }) }}
+                                                        {{ form_errors(form.username) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        Prénom
+                                                        {{ form_widget(form.firstname, { 'attr': {'class': 'form-control required username','placeholder': 'Firstname'} }) }}
+                                                        {{ form_errors(form.firstname) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        Nom
+                                                        {{ form_widget(form.lastname, { 'attr': {'class': 'form-control required username','placeholder': 'Lastname'} }) }}
+                                                        {{ form_errors(form.lastname) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">
+                                                <a class="accordion-toggle" data-toggle="collapse"
+                                                   data-parent="#subscription"
+                                                   href="#collapseTwo">
+                                                    Mon image publique
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse in">
+                                            <!-- enlever la class in pour rendre le panel non collapse-->
+                                            <div class="panel-body">
+                                                <div class='col-xs-6 pagination-centered'>
+                                                    <label><i class="fa fa-file-image-o"></i> Profil</label><br/>
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail">
+                                                            <img data-src="" alt="Image" />
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                                        <div>
+                                                        <span class="btn btn-default btn-file">
+                                                            <span class="fileinput-new">Choisir</span>
+                                                            <span class="fileinput-exists">Changer</span>
+                                                            {{ form_widget(form.picture) }}
+                                                            {{ form_errors(form.picture) }}
+                                                        </span>
+                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Annuler</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='col-xs-6 pagination-centered'>
+                                                    <label><i class="fa fa-file-image-o"></i> Couverture</label><br/>
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail">
+                                                            <img data-src="" alt="Image"/>
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                                        <div>
+                                                        <span class="btn btn-default btn-file">
+                                                            <span class="fileinput-new">Choisir</span>
+                                                            <span class="fileinput-exists">Changer</span>
+                                                            {{ form_widget(form.cover) }}
+                                                            {{ form_errors(form.cover) }}
+                                                        </span>
+                                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Annuler</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{ form_widget(form._token) }}
+                                            <button type="submit"
+                                                    class="formButton btn pull-right btn-success margin10"
+                                                    data-loading-text="Inscription en cours" id="submit">
+                                                Créer mon compte
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        {% endblock fos_user_content %}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+{% block javascriptPageTreatment %}
+    <script>
+        jQuery(document).ready(function () {
+            $("#thumbnailTooltip").tooltip();
+        });
+    </script>
+{% endblock %}

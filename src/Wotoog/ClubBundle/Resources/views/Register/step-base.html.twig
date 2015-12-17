@@ -1,0 +1,61 @@
+<div class="page-step-base">
+    <fieldset>
+        <legend>Ces informations permettent d'identifier votre club</legend>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="name">Nom</label>
+
+            <div class="col-md-4">
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control input-md required','placeholder': 'Name', 'maxlenght':'18'} }) }}
+                {{ form_errors(form.name) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="picture">{{ form_label(form.picture) }}</label>
+
+            <div class="col-md-4">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150">
+                        <img data-src="" src="{{ asset('bundles/wotoogclub/images/unknown.png') }}" alt="">
+                        <caption>Image par défaut</caption>
+                    </div>
+                    <div class="fileinput-preview fileinput-exists thumbnail"
+                         style="max-width: 200px; max-height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-default btn-file">
+                            <span class="fileinput-new">Choisir une autre image</span>
+                            <span class="fileinput-exists">Changer</span>
+                            {{ form_widget(form.picture) }}
+                            {{ form_errors(form.picture) }}
+                        </span>
+                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="description">Décrivez votre club</label>
+            <div class="col-md-4">
+                {{ form_widget(form.description, { 'attr': {'class': 'form-control required','placeholder': 'Please put here a short description of your club. For exemple, why do you find it useful ?', 'maxlenght':'128'} }) }}
+                {{ form_errors(form.description) }}
+            </div>
+        </div>
+
+        <label for="visibility" class="col-md-4 control-label">Voulez vous rendre votre club visible sur le site</label>
+
+        <div class="col-sm-7 col-md-7">
+            <div class="input-group">
+                <div id="radioBtn" class="btn-group">
+                    <a class="btn btn-primary btn-sm active" data-toggle="wotoog_clubbundle_club_visibility" data-value="public">Oui</a>
+                    <a class="btn btn-primary btn-sm notActive" data-toggle="wotoog_clubbundle_club_visibility" data-value="private">Non, il
+                        est privé</a>
+                </div>
+                {{ form_widget(form.visibility, { 'attr': {'class': 'form-control required', 'value': 'public'} }) }}
+                {{ form_errors(form.visibility) }}
+            </div>
+        </div>
+    </fieldset>
+    <button id="activate-step-2" class="btn btn-primary btn-lg">Suivant</button>
+</div>

@@ -1,0 +1,34 @@
+{% extends "::base.html.twig" %}
+    {% block body %}
+        {% block header %}
+            <header>
+                <div class="navbar navbar-fixed-top navbar-default" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target="#bs-navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            {% block appsmenu %}
+                            {% endblock %}
+                            {# @todo: A changer quand le site aura sa page d'accueil#}
+                            <a class="navbar-brand-centered navbar-brand" href="{{ path('wotoog_counter_homepage') }}"
+                                                                               title="Wotoog">Wotoog</a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-navbar-collapse" role="navigation">
+                            {% block headerMenu %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% endblock %}
+        {% block document %}
+        {% endblock %}
+        {% block footer %}
+            {% include "WotoogHomeBundle::footer.html.twig" %}
+        {% endblock %}
+    {% endblock %}

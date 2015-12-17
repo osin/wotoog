@@ -1,0 +1,15 @@
+<div class="card">
+    <div id="cover-blur">
+        <img src="{{ asset(author.cover) | apply_filter('cover') }}" alt="cover" class="img" id="cover-blur-img"/>
+    </div>
+    <div class="picture">
+        <img src="{{ asset(author.picture)  | apply_filter('thumb') }}" alt="picture"
+             class="img-responsive img-circle dp"/>
+    </div>
+    <div class="caption text-center">
+        <address>
+            <p class="lead">{{ author.name }}</p>
+            {{ author.description }}
+        </address>
+    </div>
+</div>

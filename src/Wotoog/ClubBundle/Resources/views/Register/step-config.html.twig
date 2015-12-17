@@ -1,0 +1,48 @@
+<div class="page-step-config">
+<fieldset>
+    <!-- Form Name -->
+    <legend>Configuration</legend>
+
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="design">{{ form_label(form.theme) }}</label>
+        <div class="btn-group col-md-8">
+            {{ form_widget(form.theme, { 'attr': {'class': 'form-control required'} }) }}
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="cover">{{ form_label(form.cover) }}</label>
+        <div class="col-md-4">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-new thumbnail"">
+                    <img data-src="" src="{{ asset('bundles/wotoogclub/images/unknown.png') }}" alt="">
+                    <caption>Image par défaut</caption>
+                </div>
+                <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                <div>
+                        <span class="btn btn-default btn-file">
+                            <span class="fileinput-new">Choisir une autre image</span>
+                            <span class="fileinput-exists">Changer</span>
+                            {{ form_widget(form.cover) }}
+                            {{ form_errors(form.cover) }}
+                        </span>
+                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multiple Checkboxes (inline) -->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="plugins">Extensions à activer</label>
+        <div class="col-md-8">
+            {{ form_widget(form.extension, { 'attr': {'class': 'form-control required'} }) }}
+        </div>
+    </div>
+</fieldset>
+    {#
+    <button id="activate-step-3" class="btn btn-primary btn-lg">Suivant</button>
+    #}
+</div>

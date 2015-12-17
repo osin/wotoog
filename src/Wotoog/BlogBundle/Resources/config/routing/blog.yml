@@ -1,0 +1,15 @@
+blog_show:
+    path:     /{blog_id}/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: wotoog_post_index
+        permanent: true
+
+blog_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "WotoogBlogBundle:Blog:edit" }
+
+blog_update:
+    path:     /{id}/update
+    defaults: { _controller: "WotoogBlogBundle:Blog:update" }
+    requirements: { _method: post|put }

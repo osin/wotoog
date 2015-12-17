@@ -1,0 +1,47 @@
+Wotoog\ClubBundle\Entity\Club:
+    type: entity
+    table: club
+    repositoryClass: Wotoog\ClubBundle\Entity\ClubRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 18
+            required: true
+        description:
+            type: text
+            required: true
+            lenght: 128
+        picture:
+            type: string
+            length: 255
+            required: true
+        cover:
+            type: string
+            length: 255
+            required: true
+        visibility:
+            type: string
+            length: '10'
+            required: true
+        theme:
+            type: string
+            length: '16'
+            required: true
+        extension:
+            type: array
+        deleted:
+            type: boolean
+            column: deleted
+            default: false
+    oneToOne:
+        blog:
+            targetEntity: Wotoog\BlogBundle\Entity\Blog
+            cascade: ["persist"]
+    lifecycleCallbacks:
+        postPersist: [ upload ]

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <link rel="icon" sizes="16x16" href="{{ asset('bundles/wotooghome/img/fav-icon.png') }}"/>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('bundles/wotooghome/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/wotooghome/css/bootstrap-theme.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/wotooghome/css/font-awesome.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/wotooghome/css/jasny-bootstrap.min.css') }}"/>
+            {% block customStyleSheet %}{% endblock %}
+            <link rel="stylesheet" href="{{ asset('bundles/wotooghome/css/datepicker.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('bundles/wotooghome/css/datepicker3.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('bundles/wotooghome/css/style.css') }}"/>
+            <title>{% block title %}Wotoog{% endblock %}</title>
+            <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+            <meta charset="utf-8">
+        {% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/wotooghome/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/wotooghome/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('bundles/wotooghome/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/wotooghome/js/jasny-bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/wotooghome/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('bundles/wotooghome/js/jquery.md5.js') }}"></script>
+    <script src="{{ asset('bundles/wotooghome/js/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/wotooghome/js/select2_locale_fr.js') }}"></script>
+    <script src="{{ asset('bundles/wotooghome/js/pixastic.custom.js') }}"></script>
+    <script>
+        var TogetherJSConfig_toolName = "Talk";
+        var TogetherJSConfig_dontShowClicks = true;
+        TogetherJSConfig_enableShortcut = true;
+        TogetherJSConfig_autoStart = true;
+        TogetherJSConfig_inviteFromRoom = true;
+        TogetherJSConfig_suppressInvite = true;
+        TogetherJSConfig_suppressJoinConfirmation = true;
+        // more config...
+    </script>
+    <script src="https://togetherjs.com/togetherjs-min.js"></script>
+{% block javascriptCommunPagesTreatment %}
+    <script>
+        $(function(){
+            $(".reveal").mousedown(function() {
+                        $(".password").replaceWith($('.password').clone().attr('type', 'text'));
+                    })
+                    .mouseup(function() {
+                        $(".password").replaceWith($('.password').clone().attr('type', 'password'));
+                    })
+                    .mouseout(function() {
+                        $(".password").replaceWith($('.password').clone().attr('type', 'password'));
+                    });
+        });
+        $('.pop').popover();
+    </script>
+{% endblock %}
+    {% block javascriptPageTreatment %}
+    {% endblock %}
+{% endblock %}
+</body>
+</html>

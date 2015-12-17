@@ -1,0 +1,30 @@
+wotoog_club:
+    pattern:  /
+    defaults: { _controller: "WotoogClubBundle:Club:index" }
+
+wotoog_club_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WotoogClubBundle:Club:show" }
+
+wotoog_club_new:
+    pattern:  /new
+    defaults: { _controller: "WotoogClubBundle:Club:new" }
+
+wotoog_club_create:
+    pattern:  /create
+    defaults: { _controller: "WotoogClubBundle:Club:create" }
+    requirements: { _method: post }
+
+wotoog_club_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WotoogClubBundle:Club:edit" }
+
+wotoog_club_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WotoogClubBundle:Club:update" }
+    requirements: { _method: post|put }
+
+wotoog_club_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WotoogClubBundle:Club:delete" }
+    requirements: { _method: post|delete }

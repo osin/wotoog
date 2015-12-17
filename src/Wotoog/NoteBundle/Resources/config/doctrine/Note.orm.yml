@@ -1,0 +1,29 @@
+Wotoog\NoteBundle\Entity\Note:
+    type: entity
+    table: note
+    repositoryClass: Wotoog\NoteBundle\Entity\NoteRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: '64'
+        type:
+            type: string
+            length: '16'
+        content:
+            type: text
+        createdAt:
+            type: datetime
+            column: created_at
+        link:
+            type: string
+            length: 255
+        picture:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

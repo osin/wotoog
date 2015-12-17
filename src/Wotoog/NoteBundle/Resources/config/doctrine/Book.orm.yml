@@ -1,0 +1,21 @@
+Wotoog\NoteBundle\Entity\Book:
+    type: entity
+    table: book
+    repositoryClass: Wotoog\NoteBundle\Entity\BookRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        createdAt:
+            type: datetime
+            column: created_at
+        updatedAt:
+            type: datetime
+            column: updated_at
+    lifecycleCallbacks: {  }

@@ -1,0 +1,72 @@
+<ul class="nav navbar-nav navbar-left">
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-globe"></i>
+            Clubs <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ path('wotoog_club') }}"><i class="glyphicon glyphicon-search"></i> Parcourir les
+                    clubs publiques</a></li>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li><a href="{{ path('wotoog_club_new') }}"><i class=" glyphicon glyphicon-plus"></i> Créer un club</a>
+                </li>
+            {% endif %}
+        </ul>
+    </li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+    {% if author is defined and author != app.user%}
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>
+            {{ author.name }} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ path('wotoog_post_index', {'blog_id': author.blog.id}) }}"><i
+                            class="glyphicon glyphicon-book"></i> Journal</a></li>
+            {% if canEdit %}
+                <li class="nav-divider"></li>
+                <li><a href="{{ path('wotoog_post_new', {'blog_id':author.blog.id}) }}"><i
+                                class="glyphicon glyphicon-pencil"></i> Ecrire un article</a></li>
+                <li class="disabled"><a href="#"><i class="glyphicon glyphicon-wrench"></i> Options de blog</a></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {% block appsmenu %}
+        <li class="hidden-xs">
+        <a href="#" class="pop" data-placement="bottom" id="apps-menu" onclick="return false;"
+           tabindex="0" data-toggle="popover" data-html="true" data-trigger="focus" title="Applications"
+           data-content='{% include "WotoogUserBundle::apps.menu.html.twig" %}'>
+            <i class="glyphicon glyphicon-th-large"></i> Applications</a>
+        </li>
+        {% endblock %}
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle padding8" data-toggle="dropdown">
+                <img src="{{ asset(app.user.picture)}}" width="32" height="32" alt="gravatar"
+                     class="img-circle l"/> {{ app.user.username }}
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('wotoog_me') }}"><i class="glyphicon glyphicon-dashboard"></i> Voir
+                        mon profil</a></li>
+                <li><a href="{{ path('wotoog_me_edit') }}"><i class="disabled glyphicon glyphicon-wrench"></i> Gérer
+                        mon profil</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ path('wotoog_post_index', {'blog_id':app.user.blog.id}) }}"><i
+                                class="glyphicon glyphicon-book"></i> Consulter mon blog</a></li>
+                <li><a href="{{ path('wotoog_post_new', {'blog_id':app.user.blog.id}) }}"><i
+                                class="glyphicon glyphicon-pencil"></i> Ecrire un article</a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="glyphicon glyphicon-home disabled "></i> Options de compte</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-eye-close disabled "></i> Confidentialité</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-warning-sign disabled "></i> Sécurité</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ path('fos_user_security_logout') }}"><i class="glyphicon glyphicon-log-out"></i> Se
+                        déconnecter</a></li>
+            </ul>
+        </li>
+    {% endif %}
+</ul>
+{% if (is_granted("IS_AUTHENTICATED_REMEMBERED") == false) %}
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ path('wotoog_login') }}"><i class="glyphicon glyphicon-log-in"></i> Se connecter</a></li>
+        <li><a href="{{ path('wotoog_register') }}"><i class="glyphicon glyphicon-floppy-disk"></i> S'inscrire</a>
+        </li>
+    </ul>
+{% endif %}

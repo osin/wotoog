@@ -1,0 +1,97 @@
+{% extends "WotoogUserBundle::layout.html.twig" %}
+{% block documentContent %}
+    {% if canEdit %}
+        <div class="page-header">
+            <div class="btn-group btn-group-justified">
+                <a class="btn btn-default" role="button"
+                   href="{{ path('wotoog_post_new', {'blog_id':author.blog.id}) }}"><i
+                            class="glyphicon glyphicon-pencil"></i> Ecrire un article</a>
+                <a class="btn btn-warning" role="button" href="{{ path('blog_edit', {'id':author.blog.id}) }}">
+                    <i class="glyphicon glyphicon-wrench"></i> Editer le blog</a>
+            </div>
+        </div>
+    {% endif %}
+    <div class="blank-10"></div>
+    {% block blogContent %}
+        {% if posts is empty %}
+            {% if author == app.user %}
+                <div class="alert alert-info fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span
+                                class="sr-only">Close</span></button>
+                    <h4>Votre blog est vide!</h4>
+
+                    <p>Il serait surement bien de créer des articles sur ce qui vous passionne. Vous pouvez aussi
+                        partager ce que vous ressentez ou votre avis sur les événements qui vous marquent</p>
+
+                    <p>Votre blog permet de vous faire egalement connaitre au sein des clubs auxquels vous adhérer.</p>
+
+                    <div class="blank-20"></div>
+                    <p><a class="btn btn-primary" href="{{ path('wotoog_post_new', {'blog_id':app.user.blog.id}) }}"><i
+                                    class="glyphicon glyphicon-pencil"></i> Créer mon premier article</a>
+                    </p>
+                </div>
+            {% else %}
+                <div class="alert alert-info fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span
+                                class="sr-only">Close</span></button>
+                    <h4>Ce blog est vide!</h4>
+
+                    <p>Peut être devriez vous demander à ce que {{ author.name }} créer des articles</p>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="posts">
+                {% for post in posts %}
+                    <div class="col-xs-12 box no-padding">
+                        <div class="post">
+                            {% if post.category is not empty %}
+                                <div class="post-tags">
+                                    <a class="tag">{{ post.category }}</a>
+                                </div>
+                            {% endif %}
+                            <div class="panel-heading">
+                                <div class="page-header no-padding no-margin">
+                                    <h2>{{ post.title }}</h2>
+                                    <small>Mise à jour le  {{ post.updatedAt|date('d/m/Y à H:i:s') }}</small>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                {% set img = post.firstPicture %}
+                                {% if img|length > 0 %}
+                                    <div class="row">
+                                        <div class="col-sm-8 col-xs-12">
+                                            {{ post.description | raw }}
+                                        </div>
+                                        <div class="col-sm-4 col-xs-12">
+                                            {{ img | raw }}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    {{ post.description | raw }}
+                                {% endif %}
+                            </div>
+                            <div class="panel-footer">
+                                <div class="pull-right">
+                                    <a class="btn btn-default"
+                                       href="{{ path('wotoog_post_show', {'blog_id':blog.id, 'id':post.id}) }}"><i
+                                                class="glyphicon glyphicon-link"></i> Lire l'article</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blank-10">&nbsp;</div>
+                {% endfor %}
+            </div>
+            {{ include("WotoogHomeBundle::pagination-button.html.twig", {'key':'blog_id', 'value':blog.id, 'page':page}) }}
+        {% endif %}
+    {% endblock %}
+{% endblock %}
+{% block javascriptPageTreatment %}
+    {{ parent() }}
+    <script>
+        $("iframe").each(function () {
+            $(this).attr('class', "embed-responsive-item");
+            $(this).parent().attr('class', "embed-responsive embed-responsive-16by9")
+        });
+    </script>
+{% endblock %}

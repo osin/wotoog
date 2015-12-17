@@ -1,0 +1,15 @@
+wotoog_me:
+    pattern:  /me/
+    defaults: {_controller: WotoogUserBundle:Profile:show}
+
+wotoog_other:
+    pattern:  /{username}/
+    defaults: {_controller: WotoogUserBundle:Profile:show}
+
+wotoog_me_edit:
+    pattern: /me/edit
+    defaults: {_controller: WotoogUserBundle:Profile:edit}
+
+#wotoog_user:
+#    pattern: /{username}/
+#
